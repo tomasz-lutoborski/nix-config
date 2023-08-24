@@ -41,6 +41,8 @@
     LC_TELEPHONE = "pl_PL.UTF-8";
     LC_TIME = "pl_PL.UTF-8";
   };
+  programs.zsh.enable = true;
+  services.flatpak.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -80,7 +82,7 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
+    layout = "pl";
     xkbVariant = "";
   };
 
@@ -98,6 +100,7 @@
       driSupport32Bit = true;
     };
   };
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -119,11 +122,12 @@
   users.users.tomek = {
     isNormalUser = true;
     description = "tomek";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [
       firefox
     #  thunderbird
     ];
+    shell = pkgs.zsh;
   };
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
@@ -140,8 +144,40 @@
     kitty
     pciutils
     papirus-icon-theme
+    gnome3.gnome-tweaks
+    gnat13
+    zsh
   ];
 
+  environment.variables.EDITOR = "nvim";
+
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+  ];
+
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-photos
+    gnome-tour
+    gnome-text-editor
+  ]) ++ (with pkgs.gnome; [
+    cheese # webcam tool
+    gnome-music
+    gnome-terminal
+    gedit # text editor
+    epiphany # web browser
+    geary # email reader
+    evince # document viewer
+    gnome-characters
+    totem # video player
+    tali # poker game
+    iagno # go game
+    hitori # sudoku game
+    atomix # puzzle game
+    gnome-weather
+    gnome-maps
+    simple-scan
+    gnome-contacts
+  ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
