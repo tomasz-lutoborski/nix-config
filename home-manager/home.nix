@@ -171,5 +171,6 @@
     cabal-install
     megasync
     ffmpeg
+    steam-run
   ];
 }
