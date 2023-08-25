@@ -19,11 +19,17 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs: {
@@ -39,7 +45,15 @@
           {
             home-manager.useUserPackages = true;
 
-            home-manager.users.tomek = import ./home-manager/home.nix;
+            # home-manager.users.tomek = import ./home-manager/home.nix;
+	    home-manager.users.tomek = { pkgs, ... }: {
+	      imports = [
+	        ./home-manager/home.nix
+	        inputs.nixvim.homeManagerModules.nixvim
+	      # Other imports
+	      ];
+
+	    };
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
             home-manager.extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config

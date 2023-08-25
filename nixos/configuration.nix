@@ -134,7 +134,10 @@
   nix.settings.trusted-users = [ "tomek" ];
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    cudaSupport = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -147,6 +150,7 @@
     gnome3.gnome-tweaks
     gnat13
     zsh
+    cudaPackages.cudatoolkit
   ];
 
   environment.variables.EDITOR = "nvim";
@@ -154,6 +158,10 @@
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
+
+  security.sudo.extraConfig = ''
+    timestamp_timeout=30
+  '';
 
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
@@ -165,7 +173,6 @@
     gnome-terminal
     gedit # text editor
     epiphany # web browser
-    geary # email reader
     evince # document viewer
     gnome-characters
     totem # video player
@@ -205,5 +212,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }

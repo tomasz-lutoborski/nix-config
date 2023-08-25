@@ -8,7 +8,7 @@
     # inputs.nix-colors.homeManagerModule
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    ./nvim.nix
   ];
 
   nixpkgs = {
@@ -37,7 +37,6 @@
     username = "tomek";
     homeDirectory = "/home/tomek";
   };
-
 
   programs.neovim = {
     enable = true;
@@ -104,6 +103,10 @@
     };
   };
 
+  programs.nixvim = {
+    colorschemes.gruvbox.enable = true;
+  };
+
   gtk = {
     enable = true;
 
@@ -133,7 +136,7 @@
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-        "blur-my-shell@gnome-shell-extensions.gcampax.github.com"
+        "blur-my-shell@aunetx"
       ];
     };
   };
@@ -171,6 +174,13 @@
     cabal-install
     megasync
     ffmpeg
-    steam-run
+    fd
+    spotify
+    discord
+    slack
+    logseq
+    pixelorama
+    inkscape
+    blender
   ];
 }
