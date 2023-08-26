@@ -24,12 +24,6 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs: {
@@ -49,7 +43,6 @@
 	    home-manager.users.tomek = { pkgs, ... }: {
 	      imports = [
 	        ./home-manager/home.nix
-	        inputs.nixvim.homeManagerModules.nixvim
 	      # Other imports
 	      ];
 
