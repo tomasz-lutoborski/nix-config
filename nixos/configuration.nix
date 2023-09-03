@@ -44,6 +44,7 @@
   programs.zsh.enable = true;
   services.flatpak.enable = true;
 
+  services.emacs.enable = true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -52,6 +53,16 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "fantasizer_dev" ];
+    authentication = pkgs.lib.mkOverride 10 ''
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+    local  all             all                                     trust
+    host   all             all             127.0.0.1/32            trust
+    '';
+  };
 
   hardware.nvidia = {
 
@@ -150,12 +161,18 @@
     gnat13
     zsh
     cudaPackages.cudatoolkit
+    mlocate
   ];
 
-  environment.variables.EDITOR = "nvim";
+  environment.variables = {
+    EDITOR = "nvim";
+  };
 
   fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" ]; })
+    rubik
+    open-sans
+    roboto
   ];
 
   security.sudo.extraConfig = ''

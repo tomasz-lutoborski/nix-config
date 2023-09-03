@@ -8,7 +8,6 @@
     # inputs.nix-colors.homeManagerModule
 
     # You can also split up your configuration and import pieces of it here:
-    ./nvim.nix
   ];
 
   nixpkgs = {
@@ -36,6 +35,9 @@
   home = {
     username = "tomek";
     homeDirectory = "/home/tomek";
+    sessionVariables = {
+      LEDGER_FILE = "$HOME/Documents/finance/2023.journal";
+    };
   };
 
   programs.neovim = {
@@ -89,7 +91,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "FiraCode Nerd Font";
+      name = "Iosevka Nerd Font";
       size = 11; 
     };
     keybindings = {
@@ -285,6 +287,12 @@
       };
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+  
   programs.starship = {
     enable = true;
     # Configuration written to ~/.config/starship.toml
@@ -316,6 +324,11 @@
     };
   };
 
+  home.activation.keyboardSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/delay "uint32 160"
+    ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/repeat-interval "uint32 6"
+  '';
+
   dconf.settings = {
     # ...
     "org/gnome/shell" = {
@@ -326,20 +339,76 @@
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
         "blur-my-shell@aunetx"
       ];
+
+      favorite-apps = [
+        "kitty.desktop"
+        "org.gnome.Nautilus.desktop"
+        "org.mozilla.Thunderbird.desktop"
+        "firefox.desktop"
+        "org.gnome.Software.desktop" 
+      ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
     };
 
+    "org/gnome/desktop/wm/keybindings" = {
+      close = ["<Super>w"];
+      move-to-workspace-1 = ["<Shift><Super>1"];
+      move-to-workspace-2 = ["<Shift><Super>2"];
+      move-to-workspace-3 = ["<Shift><Super>3"];
+      move-to-workspace-4 = ["<Shift><Super>4"];
+      switch-to-workspace-1 = ["<Super>1"];
+      switch-to-workspace-2 = ["<Super>2"];
+      switch-to-workspace-3 = ["<Super>3"];
+      switch-to-workspace-4 = ["<Super>4"] ;
+      activate-window-menu = [];
+    };
+
     "org/gnome/desktop/interface" = {
       gtk-theme = "Gruvbox-Dark-BL";
+      color-scheme = "prefer-dark";
+      cursor-theme = "Bibata-Modern-Amber";
+      font-antialiasing = "grayscale";
+      font-hinting = "slight";
+      icon-theme = "Papirus-Dark";
     };
 
     "org/gnome/desktop/notifications/application/spotify" = {
       enable = false;
     };
- };
+
+    "org/gnome/desktop/peripherals/touchpad" = {
+      natural-scroll = true;
+      two-finger-scrolling-enabled = true;
+      tap-to-click = true;
+      speed = 0.235;
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+      ];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "kitty super";
+      command = "kitty";
+      binding = "<Super>t";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      name = "firefox";
+      command = "firefox";
+      binding = "<Super>f";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      name = "emacs";
+      command = "emacs";
+      binding = "<Super>e";
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
@@ -370,7 +439,6 @@
     bibata-cursors
     exa
     tldr
-    rustup
     cabal-install
     megasync
     ffmpeg
@@ -383,6 +451,15 @@
     inkscape
     blender
     vscode-fhs
-    emacs29
+    emacs29-pgtk
+    dconf2nix
+    nil
+    brave
+    elixir-ls
+    elixir
+    clojure
+    clojure-lsp
+    hledger
+    libsForQt5.okular
   ];
 }
