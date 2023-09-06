@@ -189,7 +189,7 @@
     gnome-terminal
     gedit # text editor
     epiphany # web browser
-    evince # document viewer
+    evince
     gnome-characters
     totem # video player
     tali # poker game

@@ -92,7 +92,7 @@
     enable = true;
     font = {
       name = "Iosevka Nerd Font";
-      size = 11; 
+      size = 12; 
     };
     keybindings = {
       "ctrl+alt+enter" = "launch --cwd=current";
@@ -461,5 +461,9 @@
     clojure-lsp
     hledger
     libsForQt5.okular
+    haskell-language-server
+    rustup
+    foliate
+    okular
   ];
 }
