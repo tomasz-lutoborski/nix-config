@@ -37,6 +37,7 @@
     homeDirectory = "/home/tomek";
     sessionVariables = {
       LEDGER_FILE = "$HOME/Documents/finance/2023.journal";
+      QT_STYLE_OVERRIDE = "kvantum";
     };
   };
 
@@ -106,56 +107,29 @@
     shellIntegration.enableZshIntegration = true;
     extraConfig = ''
     enabled_layouts grid, stack
-    background #2D2D2D
-    foreground #d4be98
-    
-    selection_background #d4be98
-    selection_foreground #282828
-    
-    cursor #a89984
-    cursor_text_color background
-    
-    active_tab_background #32302f
-    active_tab_foreground #d8a657
-    active_tab_font_style bold
-    inactive_tab_background #32302f
-    inactive_tab_foreground #e78a4e
-    inactive_tab_font_style normal
-    
-    active_border_color #ea6962
-    inactive_border_color #d4be98
-    
-    # Black
-    color0 #665c54
-    color8 #928374
-    
-    # Red
-    color1 #ea6962
-    color9 #ea6962
-    
-    # Green
-    color2 #a9b665
-    color10 #a9b665
-    
-    # Yellow
-    color3 #e78a4e
-    color11 #d8a657
-    
-    # Blue
-    color4 #7daea3
-    color12 #7daea3
-    
-    # Magenta
-    color5 #d3869b
-    color13 #d3869b
-    
-    # Cyan
-    color6 #89b482
-    color14 #89b482
-    
-    # White
-    color7 #d4be98
-    color15 #d4be98
+
+    cursor     #c7c7c7
+    cursor_text_color #feffff
+    selection_foreground #3e3e3e
+    selection_background #c1ddff
+    foreground #c8c8c8
+    background #323232
+    color0     #252525
+    color8     #555555
+    color1     #be7472
+    color9     #ff9900
+    color2     #709772
+    color10    #97bb98
+    color3     #989772
+    color11    #fefdbc
+    color4     #7199bc
+    color12    #9fbdde
+    color5     #727399
+    color13    #989abc
+    color6     #719899
+    color14    #6fbbbc
+    color7     #7f7f7f
+    color15    #feffff
     '';
   };
 
@@ -401,12 +375,17 @@
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       name = "firefox";
       command = "firefox";
-      binding = "<Super>f";
+      binding = "<Super>b";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
       name = "emacs";
       command = "emacs";
       binding = "<Super>e";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      name = "spotify";
+      command = "spotify";
+      binding = "<Super>s";
     };
   };
 
@@ -465,5 +444,11 @@
     rustup
     foliate
     okular
+    jdk17
+    nodePackages.vscode-json-languageserver
+    libsForQt5.qtstyleplugin-kvantum
+    nodePackages.typescript
+    idris2
+    metals
   ];
 }

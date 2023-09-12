@@ -168,7 +168,7 @@
     EDITOR = "nvim";
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" ]; })
     rubik
     open-sans
