@@ -39,6 +39,10 @@
       LEDGER_FILE = "$HOME/Documents/finance/2023.journal";
       QT_STYLE_OVERRIDE = "kvantum";
     };
+    sessionPath = [
+      "$HOME/.local/share/coursier/bin"
+      "$HOME/.cargo/bin"
+    ];
   };
 
   programs.neovim = {
@@ -284,6 +288,8 @@
 
   gtk = {
     enable = true;
+    
+    gtk2.extraConfig = "gtk-application-prefer-dark-theme=1";
 
     gtk3.extraConfig = {
       Settings = ''
@@ -302,7 +308,7 @@
     ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/delay "uint32 160"
     ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/repeat-interval "uint32 6"
   '';
-
+  
   dconf.settings = {
     # ...
     "org/gnome/shell" = {
@@ -418,7 +424,6 @@
     bibata-cursors
     exa
     tldr
-    cabal-install
     megasync
     ffmpeg
     fd
@@ -447,8 +452,8 @@
     jdk17
     nodePackages.vscode-json-languageserver
     libsForQt5.qtstyleplugin-kvantum
-    nodePackages.typescript
-    idris2
-    metals
+    coursier
+    elan
+    haskellPackages.ghcup
   ];
 }
