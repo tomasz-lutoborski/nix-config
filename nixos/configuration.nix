@@ -182,6 +182,7 @@
     rubik
     open-sans
     roboto
+    merriweather
   ];
 
   security.sudo.extraConfig = ''

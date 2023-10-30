@@ -427,10 +427,6 @@
     megasync
     ffmpeg
     fd
-    spotify
-    discord
-    slack
-    logseq
     pixelorama
     inkscape
     blender
@@ -440,7 +436,7 @@
     nil
     brave
     elixir-ls
-    elixir
+    elixir_1_15
     clojure
     clojure-lsp
     hledger
@@ -454,6 +450,8 @@
     libsForQt5.qtstyleplugin-kvantum
     coursier
     elan
-    haskellPackages.ghcup
+    cabal-install
+    ghc
+    rPackages.languageserver
   ];
 }
