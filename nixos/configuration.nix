@@ -151,7 +151,7 @@
   };
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "tomek" ];
+  nix.settings.trusted-users = [ "tomek" "root" ];
 
   # Allow unfree packages
   nixpkgs.config = {
@@ -165,19 +165,15 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     pciutils
-    papirus-icon-theme
-    gnome3.gnome-tweaks
     gnat13
     zsh
-    cudaPackages.cudatoolkit
-    mlocate
   ];
 
   environment.variables = {
     EDITOR = "nvim";
   };
 
-  fonts.packages = with pkgs; [
+  fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" ]; })
     rubik
     open-sans

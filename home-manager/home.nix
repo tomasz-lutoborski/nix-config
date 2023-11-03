@@ -36,7 +36,6 @@
     username = "tomek";
     homeDirectory = "/home/tomek";
     sessionVariables = {
-      LEDGER_FILE = "$HOME/Documents/finance/2023.journal";
       QT_STYLE_OVERRIDE = "kvantum";
     };
     sessionPath = [
@@ -403,7 +402,6 @@
 
   home.packages = with pkgs; [
     lazygit
-    nnn 
     zip
     unzip
     ripgrep
@@ -412,46 +410,31 @@
     which
     btop
     gh
-    zoxide
     bat
-    nodejs
     thefuck
     wl-clipboard
     gnomeExtensions.user-themes
     gnomeExtensions.blur-my-shell
-    gnomeExtensions.unite
     gruvbox-gtk-theme
     bibata-cursors
-    exa
     tldr
-    megasync
     ffmpeg
     fd
-    pixelorama
-    inkscape
-    blender
     vscode-fhs
-    emacs29-pgtk
+    emacs29
     dconf2nix
     nil
-    brave
     elixir-ls
     elixir_1_15
     clojure
     clojure-lsp
-    hledger
-    libsForQt5.okular
     haskell-language-server
-    rustup
-    foliate
-    okular
     jdk17
     nodePackages.vscode-json-languageserver
     libsForQt5.qtstyleplugin-kvantum
     coursier
+    papirus-icon-theme
+    gnome3.gnome-tweaks
     elan
-    cabal-install
-    ghc
-    rPackages.languageserver
   ];
 }
