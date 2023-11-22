@@ -436,5 +436,12 @@
     papirus-icon-theme
     gnome3.gnome-tweaks
     elan
+    foliate
+    libsForQt5.okular
+    libsForQt5.dolphin
+    megasync
+    spotify
+    nodejs_20
+    stack
   ];
 }
