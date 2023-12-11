@@ -432,7 +432,6 @@
     jdk17
     nodePackages.vscode-json-languageserver
     libsForQt5.qtstyleplugin-kvantum
-    coursier
     papirus-icon-theme
     gnome3.gnome-tweaks
     elan
@@ -441,7 +440,12 @@
     libsForQt5.dolphin
     megasync
     spotify
+    lazydocker
+    racket-minimal
+    rustup
     nodejs_20
-    stack
+    coursier
+    metals
+    (pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-community ["github-copilot"])
   ];
 }

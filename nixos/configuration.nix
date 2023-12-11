@@ -54,6 +54,7 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  virtualisation.docker.enable = true;
   
   services.postgresql = {
     enable = true;
@@ -142,7 +143,7 @@
   users.users.tomek = {
     isNormalUser = true;
     description = "tomek";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
     packages = with pkgs; [
       firefox
     #  thunderbird
