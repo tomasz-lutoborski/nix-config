@@ -42,6 +42,11 @@
     LC_TIME = "pl_PL.UTF-8";
   };
   programs.zsh.enable = true;
+
+  programs.java.enable = true;
+
+  programs.adb.enable = true;
+  
   services.flatpak.enable = true;
 
   services.emacs.enable = true;
@@ -143,17 +148,33 @@
   users.users.tomek = {
     isNormalUser = true;
     description = "tomek";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" ];
     packages = with pkgs; [
       firefox
-    #  thunderbird
     ];
     shell = pkgs.zsh;
   };
 
-  nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "tomek" "root" ];
+  nix.settings = {
+    experimental-features = [ "flakes" "nix-command" ]; 
+    trusted-users = [ "tomek" "root" ];
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://nixcache.reflex-frp.org"
+      "https://nix-community.cachix.org"
+      "https://cache.iog.io"
+      "https://lean4.cachix.org/"
+    ];
 
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "lean4.cachix.org-1:mawtxSxcaiWE24xCXXgh3qnvlTkyU7evRRnGeAhD4Wk="
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    ];
+  };
+  
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
@@ -172,6 +193,7 @@
 
   environment.variables = {
     EDITOR = "nvim";
+    PATH = "$PATH:$HOME/.local/share/coursier/bin";
   };
 
   fonts.packages = with pkgs; [
@@ -189,12 +211,12 @@
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
+    gedit # text editor
     gnome-text-editor
   ]) ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
     gnome-terminal
-    gedit # text editor
     epiphany # web browser
     evince
     gnome-characters
