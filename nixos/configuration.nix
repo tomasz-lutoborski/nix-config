@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -46,7 +47,7 @@
   programs.java.enable = true;
 
   programs.adb.enable = true;
-  
+
   services.flatpak.enable = true;
 
   services.emacs.enable = true;
@@ -60,7 +61,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   virtualisation.docker.enable = true;
-  
+
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "testing" ];
@@ -98,9 +99,16 @@
   specialisation = {
     external-display.configuration = {
       system.nixos.tags = [ "external-display" ];
-      hardware.nvidia = {
-        prime.offload.enable = lib.mkForce false;
-        powerManagement.enable = lib.mkForce false;
+      # hardware.nvidia = {
+      #   prime.offload.enable = lib.mkForce false;
+      #   powerManagement.enable = lib.mkForce false;
+      # };
+      hardware.nvidia.prime = {
+        sync.enable = true;
+
+        # Make sure to use the correct Bus ID values for your system!
+        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = "PCI:5:0:0";
       };
     };
   };
@@ -156,14 +164,14 @@
   };
 
   nix.settings = {
-    experimental-features = [ "flakes" "nix-command" ]; 
+    experimental-features = [ "flakes" "nix-command" ];
     trusted-users = [ "tomek" "root" ];
     substituters = [
       "https://cache.nixos.org/"
-      "https://nixcache.reflex-frp.org"
       "https://nix-community.cachix.org"
       "https://cache.iog.io"
       "https://lean4.cachix.org/"
+      "https://nixcache.reflex-frp.org"
     ];
 
     trusted-public-keys = [
@@ -174,7 +182,7 @@
       "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     ];
   };
-  
+
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
@@ -193,7 +201,6 @@
 
   environment.variables = {
     EDITOR = "nvim";
-    PATH = "$PATH:$HOME/.local/share/coursier/bin";
   };
 
   fonts.packages = with pkgs; [
@@ -240,7 +247,7 @@
   # };
 
   # List services that you want to enable:
-  
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

@@ -44,6 +44,8 @@
     ];
   };
 
+  xdg.configHome = "/home/tomek/.config";
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -418,7 +420,6 @@
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
-    lazygit
     zip
     unzip
     ripgrep
@@ -428,7 +429,6 @@
     btop
     gh
     bat
-    thefuck
     wl-clipboard
     gnomeExtensions.user-themes
     gnomeExtensions.blur-my-shell
@@ -439,32 +439,33 @@
     fd
     vscode-fhs
     emacs29
-    dconf2nix
     nil
     elixir-ls
     elixir_1_15
     clojure
     clojure-lsp
+    rustup
+    nixpkgs-fmt
+    agda
     nodePackages.vscode-json-languageserver
+    haskell-language-server
+    ghc
     libsForQt5.qtstyleplugin-kvantum
     papirus-icon-theme
     gnome3.gnome-tweaks
     foliate
     libsForQt5.okular
-    libsForQt5.dolphin
     megasync
     spotify
     nodejs_20
     lshw
     insomnia
-    qemu
     elan
     android-studio
     brave
     inotify-tools
-    rustup
-    nixpkgs-fmt
-    agda
+    thefuck
+    babashka
   ];
 }
 
