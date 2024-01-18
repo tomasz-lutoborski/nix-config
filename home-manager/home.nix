@@ -446,7 +446,6 @@
     clojure-lsp
     rustup
     nixpkgs-fmt
-    agda
     nodePackages.vscode-json-languageserver
     haskell-language-server
     ghc
@@ -460,12 +459,12 @@
     nodejs_20
     lshw
     insomnia
-    elan
-    android-studio
     brave
     inotify-tools
     thefuck
     babashka
+    elan
+    unison-ucm
   ];
 }
 

@@ -44,7 +44,10 @@
   };
   programs.zsh.enable = true;
 
-  programs.java.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk21;
+  };
 
   programs.adb.enable = true;
 
