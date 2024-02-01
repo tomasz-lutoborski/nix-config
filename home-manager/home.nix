@@ -18,10 +18,20 @@
 
       # Or define it inline, for example:
       # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
+      #   koka = final.koka.overrideAttrs
+      #     (oldAttrs: rec {
+      #       version = "3.0.1";
+      #       src = pkgs.fetchFromGitHub
+      #         {
+      #           owner = "koka-lang";
+      #           repo = "koka";
+      #           rev = "v${version}";
+      #           sha256 = "sha256-fLk4XokoKRQTLlBfpc7JZ3LUiYSIUZTBLyxTsCCXW7Q=";
+      #           fetchSubmodules = true;
+      #         };
+      #     });
       # })
+
     ];
     # Configure your nixpkgs instance
     config = {
@@ -29,6 +39,7 @@
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
+      permittedInsecurePackages = [ "electron-25.9.0" ];
     };
   };
 
@@ -44,7 +55,10 @@
     ];
   };
 
-  xdg.configHome = "/home/tomek/.config";
+  xdg = {
+    configHome = "/home/tomek/.config";
+    enable = true;
+  };
 
   programs.neovim = {
     enable = true;
@@ -138,136 +152,6 @@
     '';
   };
 
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme = "base16";
-    };
-    themes =
-      {
-        base16 =
-          let
-            bg0 = "#282828";
-            bg1 = "#32302f";
-            bg2 = "#32302f";
-            bg3 = "#45403d";
-            bg4 = "#45403d";
-            bg5 = "#5a524c";
-            bg_statusline1 = "#32302f";
-            bg_statusline2 = "#3a3735";
-            bg_statusline3 = "#504945";
-            bg_diff_green = "#34381b";
-            bg_visual_green = "#3b4439";
-            bg_diff_red = "#402120";
-            bg_visual_red = "#4c3432";
-            bg_diff_blue = "#0e363e";
-            bg_visual_blue = "#374141";
-            bg_visual_yellow = "#4f422e";
-            bg_current_word = "#3c3836";
-
-            fg0 = "#d4be98";
-            fg1 = "#ddc7a1";
-            red = "#ea6962";
-            orange = "#e78a4e";
-            yellow = "#d8a657";
-            green = "#a9b665";
-            aqua = "#89b482";
-            blue = "#7daea3";
-            purple = "#d3869b";
-            bg_red = "#ea6962";
-            bg_green = "#a9b665";
-            bg_yellow = "#d8a657";
-
-            grey0 = "#7c6f64";
-            grey1 = "#928374";
-            grey2 = "#a89984";
-          in
-          {
-            "type" = yellow;
-            "constant" = purple;
-            "constant.numeric" = purple;
-            "constant.character.escape" = orange;
-            "string" = green;
-            "string.regexp" = blue;
-            "comment" = grey0;
-            "variable" = fg0;
-            "variable.builtin" = blue;
-            "variable.parameter" = fg0;
-            "variable.other.member" = fg0;
-            "label" = aqua;
-            "punctuation" = grey2;
-            "punctuation.delimiter" = grey2;
-            "punctuation.bracket" = fg0;
-            "keyword" = red;
-            "keyword.directive" = aqua;
-            "operator" = orange;
-            "function" = green;
-            "function.builtin" = blue;
-            "function.macro" = aqua;
-            "tag" = yellow;
-            "namespace" = aqua;
-            "attribute" = aqua;
-            "constructor" = yellow;
-            "module" = blue;
-            "special" = orange;
-
-            "markup.heading.marker" = grey2;
-            "markup.heading.1" = { fg = red; modifiers = [ "bold" ]; };
-            "markup.heading.2" = { fg = orange; modifiers = [ "bold" ]; };
-            "markup.heading.3" = { fg = yellow; modifiers = [ "bold" ]; };
-            "markup.heading.4" = { fg = green; modifiers = [ "bold" ]; };
-            "markup.heading.5" = { fg = blue; modifiers = [ "bold" ]; };
-            "markup.heading.6" = { fg = fg0; modifiers = [ "bold" ]; };
-            "markup.list" = red;
-            "markup.bold" = { modifiers = [ "bold" ]; };
-            "markup.italic" = { modifiers = [ "italic" ]; };
-            "markup.link.url" = { fg = blue; modifiers = [ "underlined" ]; };
-            "markup.link.text" = purple;
-            "markup.quote" = grey2;
-            "markup.raw" = green;
-
-            "diff.plus" = green;
-            "diff.delta" = orange;
-            "diff.minus" = red;
-
-            "ui.background" = { bg = bg0; };
-            "ui.background.separator" = grey0;
-            "ui.cursor" = { fg = bg0; bg = fg0; };
-            "ui.cursor.match" = { fg = orange; bg = bg_visual_yellow; };
-            "ui.cursor.insert" = { fg = bg0; bg = grey2; };
-            "ui.cursor.select" = { fg = bg0; bg = blue; };
-            "ui.cursorline.primary" = { bg = bg1; };
-            "ui.cursorline.secondary" = { bg = bg1; };
-            "ui.selection" = { bg = bg3; };
-            "ui.linenr" = grey0;
-            "ui.linenr.selected" = fg0;
-            "ui.statusline" = { fg = fg0; bg = bg3; };
-            "ui.statusline.inactive" = { fg = grey0; bg = bg1; };
-            "ui.statusline.normal" = { fg = bg0; bg = fg0; modifiers = [ "bold" ]; };
-            "ui.statusline.insert" = { fg = bg0; bg = yellow; modifiers = [ "bold" ]; };
-            "ui.statusline.select" = { fg = bg0; bg = blue; modifiers = [ "bold" ]; };
-            "ui.bufferline" = { fg = grey0; bg = bg1; };
-            "ui.bufferline.active" = { fg = fg0; bg = bg3; modifiers = [ "bold" ]; };
-            "ui.popup" = { fg = grey2; bg = bg2; };
-            "ui.window" = { fg = grey0; bg = bg0; };
-            "ui.help" = { fg = fg0; bg = bg2; };
-            "ui.text" = fg0;
-            "ui.text.focus" = fg0;
-            "ui.menu" = { fg = fg0; bg = bg3; };
-            "ui.menu.selected" = { fg = bg0; bg = blue; modifiers = [ "bold" ]; };
-            "ui.virtual.whitespace" = { fg = bg4; };
-            "ui.virtual.indent-guide" = { fg = bg4; };
-            "ui.virtual.ruler" = { bg = bg3; };
-
-            "hint" = "blue";
-            "info" = "aqua";
-            "warning" = "yellow";
-            "error" = "red";
-            "diagnostic" = { modifiers = [ "underlined" ]; };
-          };
-      };
-  };
-
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -307,10 +191,12 @@
     };
   };
 
-  home.activation.keyboardSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/delay "uint32 160"
-    ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/repeat-interval "uint32 6"
-  '';
+  home.activation.keyboardSettings = lib.hm.dag.entryAfter
+    [ "writeBoundary" ]
+    ''
+      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/delay "uint32 160"
+      ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/peripherals/keyboard/repeat-interval "uint32 6"
+    '';
 
   dconf.settings = {
     # ...
@@ -429,6 +315,8 @@
     btop
     gh
     bat
+    dua
+    oha
     wl-clipboard
     gnomeExtensions.user-themes
     gnomeExtensions.blur-my-shell
@@ -444,11 +332,8 @@
     elixir_1_15
     clojure
     clojure-lsp
-    rustup
     nixpkgs-fmt
     nodePackages.vscode-json-languageserver
-    haskell-language-server
-    ghc
     libsForQt5.qtstyleplugin-kvantum
     papirus-icon-theme
     gnome3.gnome-tweaks
@@ -463,8 +348,8 @@
     inotify-tools
     thefuck
     babashka
-    elan
-    unison-ucm
+    blender
+    pixelorama
   ];
 }
 

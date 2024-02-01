@@ -53,7 +53,7 @@
 
   services.flatpak.enable = true;
 
-  services.emacs.enable = true;
+  services.emacs.enable = false;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -83,21 +83,6 @@
     '';
   };
 
-  hardware.nvidia = {
-
-    # Modesetting is needed for most Wayland compositors
-    modesetting.enable = true;
-
-    # Use the open source version of the kernel module
-    # Only available on driver 515.43.04+
-    open = false;
-
-    # Enable the nvidia settings menu
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
   specialisation = {
     external-display.configuration = {
@@ -106,13 +91,6 @@
       #   prime.offload.enable = lib.mkForce false;
       #   powerManagement.enable = lib.mkForce false;
       # };
-      hardware.nvidia.prime = {
-        sync.enable = true;
-
-        # Make sure to use the correct Bus ID values for your system!
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:5:0:0";
-      };
     };
   };
 
@@ -135,6 +113,29 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+    };
+
+
+    nvidia = {
+      prime = {
+        sync.enable = true;
+
+        # Make sure to use the correct Bus ID values for your system!
+        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = "PCI:5:0:0";
+      };
+      # Modesetting is needed for most Wayland compositors
+      modesetting.enable = true;
+
+      # Use the open source version of the kernel module
+      # Only available on driver 515.43.04+
+      open = false;
+
+      # Enable the nvidia settings menu
+      nvidiaSettings = true;
+
+      # Optionally, you may need to select the appropriate driver version for your specific GPU.
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
 
@@ -173,16 +174,12 @@
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cache.iog.io"
-      "https://lean4.cachix.org/"
-      "https://nixcache.reflex-frp.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "lean4.cachix.org-1:mawtxSxcaiWE24xCXXgh3qnvlTkyU7evRRnGeAhD4Wk="
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     ];
   };
 
@@ -191,7 +188,6 @@
     allowUnfree = true;
     cudaSupport = true;
   };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
