@@ -55,13 +55,18 @@
 
   services.emacs.enable = false;
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+    desktopManager.gnome.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidia" ];
+  };
 
   virtualisation.docker.enable = true;
 
@@ -105,7 +110,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  sound.enable = false;
   hardware = {
     pulseaudio.enable = false;
 
@@ -196,6 +201,7 @@
     pciutils
     gnat13
     zsh
+    cudaPackages.cudatoolkit
   ];
 
   environment.variables = {

@@ -233,6 +233,8 @@
       switch-to-workspace-3 = [ "<Super>3" ];
       switch-to-workspace-4 = [ "<Super>4" ];
       activate-window-menu = [ ];
+      switch-to-workspace-down = [ ];
+      switch-to-workspace-up = [ ];
     };
 
     "org/gnome/desktop/interface" = {
@@ -329,7 +331,7 @@
     emacs29
     nil
     elixir-ls
-    elixir_1_15
+    elixir_1_16
     clojure
     clojure-lsp
     nixpkgs-fmt
@@ -348,8 +350,12 @@
     inotify-tools
     thefuck
     babashka
-    blender
+    (blender.override {
+      cudaSupport = true;
+    })
     pixelorama
+    glxinfo
+    findutils
   ];
 }
 
