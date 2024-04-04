@@ -70,23 +70,23 @@
 
   virtualisation.docker.enable = true;
 
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "testing" ];
-    ensureUsers = [
-      {
-        name = "tomek";
-        ensurePermissions = {
-          "DATABASE testing" = "ALL PRIVILEGES";
-        };
-      }
-    ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      # TYPE  DATABASE        USER            ADDRESS                 METHOD
-      local  all             all                                     trust
-      host   all             all             127.0.0.1/32            md5
-    '';
-  };
+  # services.postgresql = {
+  #   enable = true;
+  #   ensureDatabases = [ "testing" ];
+  #   ensureUsers = [
+  #     {
+  #       name = "tomek";
+  #       ensurePermissions = {
+  #         "DATABASE testing" = "ALL PRIVILEGES";
+  #       };
+  #     }
+  #   ];
+  #   authentication = pkgs.lib.mkOverride 10 ''
+  #     # TYPE  DATABASE        USER            ADDRESS                 METHOD
+  #     local  all             all                                     trust
+  #     host   all             all             127.0.0.1/32            md5
+  #   '';
+  # };
 
 
   specialisation = {
