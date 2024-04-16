@@ -47,13 +47,18 @@
   home = {
     username = "tomek";
     homeDirectory = "/home/tomek";
-    sessionVariables = {
-      QT_STYLE_OVERRIDE = "kvantum";
-    };
+    # sessionVariables = {
+    #   QT_STYLE_OVERRIDE = "kvantum";
+    # };
     sessionPath = [
       "$HOME/.cargo/bin"
-      "$HOME/.local/share/coursier/bin"
     ];
+  };
+
+  qt = {
+    enable = true;
+    # platformTheme = "gnome";
+    style.name = "kvantum";
   };
 
   xdg = {
@@ -98,7 +103,7 @@
     shellAliases = {
       ll = "ls -l";
     };
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" "thefuck" "sudo" ];
@@ -460,7 +465,6 @@
     ffmpeg
     fd
     vscode-fhs
-    emacs29
     nil
     nixpkgs-fmt
     nodePackages.vscode-json-languageserver
@@ -477,10 +481,6 @@
     brave
     thefuck
     babashka
-    # (blender.override {
-    #   cudaSupport = true;
-    # })
-    # pixelorama
     glxinfo
     bun
     flyctl
@@ -489,11 +489,21 @@
     eza
     hyperfine
     drawio
-    libreoffice-fresh
     tor-browser
     joplin-desktop
-    krita
-    inkscape-with-extensions
+    wget
+    gnupg
+    opentofu
+    nix-tree
+    vagrant
+    # (blender.override {
+    #   cudaSupport = true;
+    # })
+    # pixelorama
+    # libreoffice-fresh
+    # inkscape-with-extensions
+    # krita
+    # emacs29
   ];
 }
 

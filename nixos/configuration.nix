@@ -68,7 +68,18 @@
     videoDrivers = [ "nvidia" ];
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    libvirtd = {
+      enable = true;
+    };
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+    };
+  };
+
+  programs.virt-manager.enable = true;
 
   # services.postgresql = {
   #   enable = true;
@@ -101,9 +112,9 @@
 
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "pl";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -160,12 +171,12 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
+  users.extraGroups.vboxusers.members = [ "tomek" ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tomek = {
     isNormalUser = true;
     description = "tomek";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" "libvirtd" ];
     packages = with pkgs; [
       firefox
     ];
