@@ -110,6 +110,7 @@
       theme = "robbyrussell";
     };
     initExtra = ''
+      unsetopt BEEP
       alias lj="eza"
       # shellcheck disable=SC2034,SC2153,SC2086,SC2155
 
@@ -496,6 +497,7 @@
     opentofu
     nix-tree
     vagrant
+    kubectl
     # (blender.override {
     #   cudaSupport = true;
     # })
