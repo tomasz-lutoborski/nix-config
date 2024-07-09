@@ -350,10 +350,14 @@
       favorite-apps = [
         "kitty.desktop"
         "org.gnome.Nautilus.desktop"
-        "org.mozilla.Thunderbird.desktop"
         "firefox.desktop"
-        "org.gnome.Software.desktop"
+	"spotify.desktop"
+	"zotero.desktop"
       ];
+    };
+
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "Marble-yellow-dark";
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -376,7 +380,7 @@
     };
 
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Gruvbox-Dark-BL";
+      gtk-theme = "Gruvbox-Dark-Medium-BL-MB";
       color-scheme = "prefer-dark";
       cursor-theme = "Bibata-Modern-Amber";
       font-antialiasing = "grayscale";
@@ -445,68 +449,85 @@
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
 
-  home.packages = with pkgs; [
-    zip
-    unzip
-    ripgrep
-    fzf
-    tree
-    which
-    btop
-    gh
-    bat
-    dua
-    oha
-    wl-clipboard
-    gnomeExtensions.user-themes
-    gnomeExtensions.blur-my-shell
-    gruvbox-gtk-theme
-    bibata-cursors
-    tldr
-    ffmpeg
-    fd
-    vscode-fhs
-    nil
-    nixpkgs-fmt
-    nodePackages.vscode-json-languageserver
-    libsForQt5.qtstyleplugin-kvantum
-    papirus-icon-theme
-    gnome3.gnome-tweaks
-    foliate
-    libsForQt5.okular
-    megasync
-    spotify
-    nodejs_20
-    lshw
-    insomnia
-    brave
-    thefuck
-    babashka
-    glxinfo
-    bun
-    flyctl
-    du-dust
-    atuin
-    eza
-    hyperfine
-    drawio
-    tor-browser
-    joplin-desktop
-    wget
-    gnupg
-    opentofu
-    nix-tree
-    vagrant
-    kubectl
-    # (blender.override {
-    #   cudaSupport = true;
-    # })
-    # pixelorama
-    # libreoffice-fresh
-    # inkscape-with-extensions
-    # krita
-    # emacs29
-  ];
+  home.packages = with pkgs;
+    [
+      #GNOME
+      gnome3.gnome-tweaks
+      libsForQt5.qtstyleplugin-kvantum
+      papirus-icon-theme
+      bibata-cursors
+      wl-clipboard
+      gnomeExtensions.user-themes
+      gnomeExtensions.blur-my-shell
+      sassc
+      gtk-engine-murrine
+
+      #WEB
+      brave
+      tor-browser
+
+      #UTILS
+      wget
+      gnupg
+      du-dust
+      atuin
+      eza
+      thefuck
+      glxinfo
+      lshw
+      zip
+      unzip
+      ripgrep
+      fzf
+      tree
+      which
+      btop
+      gh
+      bat
+      dua
+      oha
+      tldr
+      fd
+
+      #MEDIA
+      vlc
+      spotify
+      ffmpeg
+
+      #ARCHIVE
+      zotero_7
+      rsync
+      syncthing
+      megasync
+
+      #DOCUMENTS
+      libreoffice-fresh
+      foliate
+      libsForQt5.okular
+      drawio
+
+      #PROGRAMMING
+      clojure
+      clojure-lsp
+      bun
+      gnumake
+      babashka
+      nodejs_20
+      hyperfine
+      nil
+      nixpkgs-fmt
+      nodePackages.vscode-json-languageserver
+      vscode-fhs
+
+      #ART
+      # (blender.override {
+      #   cudaSupport = true;
+      # })
+      # synfigstudio
+      # davinci-resolve
+      # rawtherapee
+      # aseprite
+    ];
 }
 
   

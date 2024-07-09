@@ -33,6 +33,8 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
             home-manager.extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+
+	    home-manager.backupFileExtension = "backup";
           } ];
       };
     };

@@ -46,7 +46,7 @@
 
   programs.java = {
     enable = true;
-    package = pkgs.jdk21;
+    package = pkgs.jdk22;
   };
 
   programs.adb.enable = true;
@@ -72,10 +72,6 @@
     docker.enable = true;
     libvirtd = {
       enable = true;
-    };
-    virtualbox.host = {
-      enable = true;
-      enableExtensionPack = true;
     };
   };
 
@@ -125,12 +121,12 @@
   hardware = {
     pulseaudio.enable = false;
 
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
+    opengl.enable = true;
 
     nvidia = {
       prime = {
@@ -213,6 +209,8 @@
     gnat13
     zsh
     cudaPackages.cudatoolkit
+    qemu
+    devenv
   ];
 
   environment.variables = {
@@ -242,7 +240,6 @@
     gnome-terminal
     epiphany # web browser
     evince
-    gnome-characters
     totem # video player
     tali # poker game
     iagno # go game
