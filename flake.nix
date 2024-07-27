@@ -1,6 +1,6 @@
 {
   description = "Tomek's NixOS config";
-  
+
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -17,25 +17,26 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
         # > Our main nixos configuration file <
-        modules = [ 
+        modules = [
           ./nixos/configuration.nix
-	  home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
             home-manager.useUserPackages = true;
 
             # home-manager.users.tomek = import ./home-manager/home.nix;
-      	    home-manager.users.tomek = { pkgs, ... }: {
-      	      imports = [
-      	        ./home-manager/home.nix
-      	      # Other imports
-      	      ];
-      	    };
+            home-manager.users.tomek = { pkgs, ... }: {
+              imports = [
+                ./home-manager/home.nix
+                # Other imports
+              ];
+            };
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
             home-manager.extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
-	    home-manager.backupFileExtension = "backup";
-          } ];
+            home-manager.backupFileExtension = "bck";
+          }
+        ];
       };
     };
   };

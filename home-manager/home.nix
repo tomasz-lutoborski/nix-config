@@ -31,6 +31,9 @@
       #         };
       #     });
       # })
+      (final: prev: {
+        lem = prev.callPackage ./lem.nix {};
+      })
 
     ];
     # Configure your nixpkgs instance
@@ -47,9 +50,13 @@
   home = {
     username = "tomek";
     homeDirectory = "/home/tomek";
-    # sessionVariables = {
-    #   QT_STYLE_OVERRIDE = "kvantum";
-    # };
+    sessionVariables = {
+      QT_STYLE_OVERRIDE = "kvantum";
+      GDK_BACKEND = "wayland";
+      CLUTTER_BACKEND = "wayland";
+      QT_QPA_PLATFORM = "wayland";
+      NIXOS_OZONE_WL = "1";
+    };
     sessionPath = [
       "$HOME/.cargo/bin"
     ];
@@ -72,6 +79,26 @@
     vimAlias = true;
   };
 
+  programs.sioyek = {
+    enable = true;
+    config = {
+      # "background_color" = "0.25 0.24 0.22";
+      # "custom_background_color" = "0.94 0.84 0.63";
+      # "custom_text_color" = "0.06 0.04 0.01";
+      # "startup_commands" = "toggle_custom_color";
+    };
+  };
+
+  # programs.emacs = {
+  #   enable = true;
+  #    package = with pkgs; (
+  #      (emacsPackagesFor emacs29-pgtk).emacsWithPackages (
+  #        epkgs: [ epkgs.vterm ]
+  #      )
+  #    );
+  #   package = pkgs.emacs29-pgtk;
+  # };
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -84,6 +111,40 @@
     enable = true;
     userName = "Tomasz Lutoborski";
     userEmail = "tomasz@lutoborski.net";
+  };
+
+  wayland.windowManager.hyprland.settings = {
+    "$mod" = "SUPER";
+    bind =
+    [
+    "$mod, F, exec, firefox"
+    ", Print, exec, grimblast copy area"
+    ]
+    ++ (
+    # workspaces
+    # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+    builtins.concatLists (builtins.genList (
+	x: let
+	  ws = let
+	    c = (x + 1) / 10;
+	  in
+	    builtins.toString (x + 1 - (c * 10));
+	in [
+	  "$mod, ${ws}, workspace, ${toString (x + 1)}"
+	  "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+	]
+      )
+      10)
+    );
+  };
+
+  programs.nushell = {
+    enable = true;
+  };
+
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
   };
 
   programs.zsh = {
@@ -242,8 +303,9 @@
         _describe 'values' reply
       }
       compdef _ng_yargs_completions ng
-
-    '';
+      
+      GUIX_PROFILE="/home/tomek/.config/guix/current"
+      . "$GUIX_PROFILE/etc/profile"    '';
   };
 
   programs.kitty = {
@@ -263,31 +325,85 @@
     };
     shellIntegration.enableZshIntegration = true;
     extraConfig = ''
-      enabled_layouts grid, stack
+      background_opacity 0.91
 
-      cursor     #c7c7c7
-      cursor_text_color #feffff
-      selection_foreground #3e3e3e
-      selection_background #c1ddff
-      foreground #c8c8c8
-      background #323232
-      color0     #252525
-      color8     #555555
-      color1     #be7472
-      color9     #ff9900
-      color2     #709772
-      color10    #97bb98
-      color3     #989772
-      color11    #fefdbc
-      color4     #7199bc
-      color12    #9fbdde
-      color5     #727399
-      color13    #989abc
-      color6     #719899
-      color14    #6fbbbc
-      color7     #7f7f7f
-      color15    #feffff
-    '';
+      hide_window_decorations yes
+
+      window_padding_width 2
+
+      # The basic colors
+      foreground              #c6d0f5
+      background              #303446
+      selection_foreground    #303446
+      selection_background    #f2d5cf
+
+      # Cursor colors
+      cursor                  #f2d5cf
+      cursor_text_color       #303446
+
+      # URL underline color when hovering with mouse
+      url_color               #f2d5cf
+
+      # Kitty window border colors
+      active_border_color     #babbf1
+      inactive_border_color   #737994
+      bell_border_color       #e5c890
+
+      # OS Window titlebar colors
+      wayland_titlebar_color system
+      macos_titlebar_color system
+
+      # Tab bar colors
+      active_tab_foreground   #232634
+      active_tab_background   #ca9ee6
+      inactive_tab_foreground #c6d0f5
+      inactive_tab_background #292c3c
+      tab_bar_background      #232634
+
+      # Colors for marks (marked text in the terminal)
+      mark1_foreground #303446
+      mark1_background #babbf1
+      mark2_foreground #303446
+      mark2_background #ca9ee6
+      mark3_foreground #303446
+      mark3_background #85c1dc
+
+      # The 16 terminal colors
+
+      # black
+      color0 #51576d
+      color8 #626880
+
+      # red
+      color1 #e78284
+      color9 #e78284
+
+      # green
+      color2  #a6d189
+      color10 #a6d189
+
+      # yellow
+      color3  #e5c890
+      color11 #e5c890
+
+      # blue
+      color4  #8caaee
+      color12 #8caaee
+
+      # magenta
+      color5  #f4b8e4
+      color13 #f4b8e4
+
+      # cyan
+      color6  #81c8be
+      color14 #81c8be
+
+      # white
+      color7  #b5bfe2
+      color15 #a5adce
+      
+      enabled_layouts grid, stack
+   '';
   };
 
   programs.direnv = {
@@ -357,7 +473,7 @@
     };
 
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Marble-yellow-dark";
+      name = "Marble-pink-dark";
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -380,7 +496,7 @@
     };
 
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Gruvbox-Dark-Medium-BL-MB";
+      gtk-theme = "Catppuccin-Dark-Frappe-B-MB";
       color-scheme = "prefer-dark";
       cursor-theme = "Bibata-Modern-Amber";
       font-antialiasing = "grayscale";
@@ -420,7 +536,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
       name = "emacs";
-      command = "emacs";
+      command = "emacsclient -c";
       binding = "<Super>e";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
@@ -452,7 +568,7 @@
   home.packages = with pkgs;
     [
       #GNOME
-      gnome3.gnome-tweaks
+      gnome-tweaks
       libsForQt5.qtstyleplugin-kvantum
       papirus-icon-theme
       bibata-cursors
@@ -464,9 +580,15 @@
 
       #WEB
       brave
+      nyxt
       tor-browser
+      thunderbird
 
       #UTILS
+      pass
+      jq
+      gnuplot
+      lazygit
       wget
       gnupg
       du-dust
@@ -488,11 +610,21 @@
       oha
       tldr
       fd
+      inotify-tools
+      xsv
+      hyperfine
+      usbutils
+      emacsPackages.jinx
+      hunspell
+      hunspellDicts.pl_PL
+      hunspellDicts.en_US
+      enchant
 
       #MEDIA
       vlc
       spotify
       ffmpeg
+      ncspot
 
       #ARCHIVE
       zotero_7
@@ -504,29 +636,49 @@
       libreoffice-fresh
       foliate
       libsForQt5.okular
-      drawio
+      # drawio
 
       #PROGRAMMING
+      lua51Packages.lua
+      lua-language-server
+      python3
       clojure
       clojure-lsp
-      bun
-      gnumake
+      clj-kondo
+      cljfmt
       babashka
+      rustup
+      bruno
+      bun
       nodejs_20
-      hyperfine
+      gnumake
+      cmake
+      clang-tools_18
+      lldb
+      vscode-extensions.vadimcn.vscode-lldb
+      nodePackages.prettier
+      nodePackages.typescript-language-server
       nil
-      nixpkgs-fmt
+      nixfmt-rfc-style
       nodePackages.vscode-json-languageserver
       vscode-fhs
+      shellcheck
+      sbcl
+      helix
+      guile
+      # lem
+      # elixir_1_17
+      # elixir-ls
+      # erlang
 
       #ART
-      # (blender.override {
-      #   cudaSupport = true;
-      # })
+      (blender.override {
+        cudaSupport = true;
+      })
       # synfigstudio
       # davinci-resolve
       # rawtherapee
-      # aseprite
+      aseprite
     ];
 }
 

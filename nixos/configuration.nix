@@ -49,11 +49,18 @@
     package = pkgs.jdk22;
   };
 
+  programs.hyprland.enable = true;
+
   programs.adb.enable = true;
 
   services.flatpak.enable = true;
-
-  services.emacs.enable = false;
+  
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs29-pgtk;
+    startWithGraphical = true;
+    defaultEditor = true;
+  };
   # Enable the X11 windowing system.
 
   # Enable the GNOME Desktop Environment.
@@ -77,23 +84,29 @@
 
   programs.virt-manager.enable = true;
 
-  # services.postgresql = {
+  services.guix = {
+    enable = true;
+  };
+
+  # services.languagetool = {
   #   enable = true;
-  #   ensureDatabases = [ "testing" ];
-  #   ensureUsers = [
-  #     {
-  #       name = "tomek";
-  #       ensurePermissions = {
-  #         "DATABASE testing" = "ALL PRIVILEGES";
-  #       };
-  #     }
-  #   ];
-  #   authentication = pkgs.lib.mkOverride 10 ''
-  #     # TYPE  DATABASE        USER            ADDRESS                 METHOD
-  #     local  all             all                                     trust
-  #     host   all             all             127.0.0.1/32            md5
-  #   '';
   # };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "tomek" ];
+    ensureUsers = [
+      {
+        name = "tomek";
+        ensureDBOwnership = true;
+      }
+    ];
+    authentication = pkgs.lib.mkOverride 10 ''
+      # TYPE  DATABASE        USER            ADDRESS                 METHOD
+      local  all             all                                     trust
+      host   all             all             127.0.0.1/32            md5
+    '';
+  };
 
 
   specialisation = {
@@ -126,7 +139,7 @@
       enable32Bit = true;
     };
 
-    opengl.enable = true;
+    # opengl.enable = true;
 
     nvidia = {
       prime = {
@@ -186,12 +199,14 @@
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cache.iog.io"
+      "https://hyprland.cachix.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
@@ -218,7 +233,7 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" "IosevkaTermSlab" ]; })
     rubik
     open-sans
     roboto
@@ -234,21 +249,22 @@
     gnome-tour
     gedit # text editor
     gnome-text-editor
-  ]) ++ (with pkgs.gnome; [
+    geary
     cheese # webcam tool
-    gnome-music
     gnome-terminal
     epiphany # web browser
     evince
     totem # video player
+    simple-scan
+  ]) ++ (with pkgs.gnome; [
+    gnome-music
+    gnome-contacts
     tali # poker game
     iagno # go game
     hitori # sudoku game
     atomix # puzzle game
     gnome-weather
     gnome-maps
-    simple-scan
-    gnome-contacts
   ]);
 
   # Some programs need SUID wrappers, can be configured further or are
