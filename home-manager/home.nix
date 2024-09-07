@@ -31,9 +31,6 @@
       #         };
       #     });
       # })
-      (final: prev: {
-        lem = prev.callPackage ./lem.nix {};
-      })
 
     ];
     # Configure your nixpkgs instance
@@ -79,15 +76,16 @@
     vimAlias = true;
   };
 
-  programs.sioyek = {
-    enable = true;
-    config = {
+
+  # programs.sioyek = {
+  #   enable = true;
+  #   config = {
       # "background_color" = "0.25 0.24 0.22";
       # "custom_background_color" = "0.94 0.84 0.63";
       # "custom_text_color" = "0.06 0.04 0.01";
       # "startup_commands" = "toggle_custom_color";
-    };
-  };
+  #   };
+  # };
 
   # programs.emacs = {
   #   enable = true;
@@ -172,7 +170,7 @@
     };
     initExtra = ''
       unsetopt BEEP
-      alias lj="eza"
+      alias lf="eza"
       # shellcheck disable=SC2034,SC2153,SC2086,SC2155
 
       # Above line is because shellcheck doesn't support zsh, per
@@ -302,10 +300,7 @@
         IFS=$si
         _describe 'values' reply
       }
-      compdef _ng_yargs_completions ng
-      
-      GUIX_PROFILE="/home/tomek/.config/guix/current"
-      . "$GUIX_PROFILE/etc/profile"    '';
+      compdef _ng_yargs_completions ng '';      
   };
 
   programs.kitty = {
@@ -325,7 +320,7 @@
     };
     shellIntegration.enableZshIntegration = true;
     extraConfig = ''
-      background_opacity 0.91
+      background_opacity 1
 
       hide_window_decorations yes
 
@@ -461,14 +456,15 @@
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
         "blur-my-shell@aunetx"
+        "gsconnect@andyholmes.github.io"
       ];
 
       favorite-apps = [
         "kitty.desktop"
         "org.gnome.Nautilus.desktop"
         "firefox.desktop"
-	"spotify.desktop"
-	"zotero.desktop"
+	      "spotify.desktop"
+	      "zotero.desktop"
       ];
     };
 
@@ -580,12 +576,10 @@
 
       #WEB
       brave
-      nyxt
       tor-browser
       thunderbird
 
       #UTILS
-      pass
       jq
       gnuplot
       lazygit
@@ -614,7 +608,7 @@
       xsv
       hyperfine
       usbutils
-      emacsPackages.jinx
+      carapace
       hunspell
       hunspellDicts.pl_PL
       hunspellDicts.en_US
@@ -636,49 +630,39 @@
       libreoffice-fresh
       foliate
       libsForQt5.okular
+      ocrmypdf
       # drawio
 
       #PROGRAMMING
-      lua51Packages.lua
-      lua-language-server
       python3
       clojure
       clojure-lsp
       clj-kondo
       cljfmt
       babashka
-      rustup
       bruno
       bun
       nodejs_20
       gnumake
       cmake
-      clang-tools_18
-      lldb
-      vscode-extensions.vadimcn.vscode-lldb
       nodePackages.prettier
       nodePackages.typescript-language-server
       nil
       nixfmt-rfc-style
       nodePackages.vscode-json-languageserver
       vscode-fhs
-      shellcheck
-      sbcl
       helix
-      guile
-      # lem
-      # elixir_1_17
-      # elixir-ls
-      # erlang
 
       #ART
-      (blender.override {
-        cudaSupport = true;
-      })
+      # (blender.override {
+      #   cudaSupport = true;
+      # })
       # synfigstudio
       # davinci-resolve
       # rawtherapee
+      # blockbench
       aseprite
+      # giada
     ];
 }
 

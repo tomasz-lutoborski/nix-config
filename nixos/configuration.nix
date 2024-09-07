@@ -49,18 +49,14 @@
     package = pkgs.jdk22;
   };
 
-  programs.hyprland.enable = true;
-
-  programs.adb.enable = true;
-
   services.flatpak.enable = true;
   
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs29-pgtk;
-    startWithGraphical = true;
-    defaultEditor = true;
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   package = pkgs.emacs29-pgtk;
+  #   startWithGraphical = true;
+  #   defaultEditor = true;
+  # };
   # Enable the X11 windowing system.
 
   # Enable the GNOME Desktop Environment.
@@ -84,13 +80,10 @@
 
   programs.virt-manager.enable = true;
 
-  services.guix = {
+  programs.kdeconnect = {
     enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
   };
-
-  # services.languagetool = {
-  #   enable = true;
-  # };
 
   services.postgresql = {
     enable = true;
@@ -130,7 +123,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = false;
   hardware = {
     pulseaudio.enable = false;
 
@@ -199,14 +191,12 @@
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cache.iog.io"
-      "https://hyprland.cachix.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
