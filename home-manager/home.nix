@@ -142,7 +142,7 @@
 
   programs.carapace = {
     enable = true;
-    enableNushellIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.zsh = {
@@ -300,7 +300,9 @@
         IFS=$si
         _describe 'values' reply
       }
-      compdef _ng_yargs_completions ng '';      
+      compdef _ng_yargs_completions ng
+      '';      
+
   };
 
   programs.kitty = {
@@ -575,7 +577,7 @@
       gtk-engine-murrine
 
       #WEB
-      brave
+      google-chrome
       tor-browser
       thunderbird
 
@@ -608,17 +610,17 @@
       xsv
       hyperfine
       usbutils
-      carapace
       hunspell
       hunspellDicts.pl_PL
       hunspellDicts.en_US
-      enchant
 
       #MEDIA
       vlc
       spotify
       ffmpeg
       ncspot
+      zoom-us
+      # audacity
 
       #ARCHIVE
       zotero_7
@@ -627,10 +629,13 @@
       megasync
 
       #DOCUMENTS
-      libreoffice-fresh
-      foliate
+      onlyoffice-bin
+      libreoffice-qt6
+      # foliate
       libsForQt5.okular
       ocrmypdf
+      pdftk
+      # koodo-reader
       # drawio
 
       #PROGRAMMING
@@ -639,12 +644,14 @@
       clojure-lsp
       clj-kondo
       cljfmt
+      leiningen
       babashka
       bruno
       bun
       nodejs_20
       gnumake
       cmake
+      just
       nodePackages.prettier
       nodePackages.typescript-language-server
       nil
@@ -654,16 +661,21 @@
       helix
 
       #ART
-      # (blender.override {
-      #   cudaSupport = true;
-      # })
+      (blender.override {
+        cudaSupport = true;
+      })
       # synfigstudio
       # davinci-resolve
       # rawtherapee
       # blockbench
       aseprite
+      # gimp
       # giada
+      tiled
+
+      #GAMES
+      prismlauncher
     ];
 }
 
-  
+

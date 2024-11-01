@@ -246,7 +246,6 @@
     evince
     totem # video player
     simple-scan
-  ]) ++ (with pkgs.gnome; [
     gnome-music
     gnome-contacts
     tali # poker game
