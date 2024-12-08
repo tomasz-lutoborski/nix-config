@@ -630,7 +630,7 @@
 
       #DOCUMENTS
       onlyoffice-bin
-      libreoffice-qt6
+      # libreoffice-qt6
       # foliate
       libsForQt5.okular
       ocrmypdf
@@ -639,6 +639,8 @@
       # drawio
 
       #PROGRAMMING
+      elixir_1_16
+      erlang
       python3
       clojure
       clojure-lsp
@@ -646,11 +648,11 @@
       cljfmt
       leiningen
       babashka
-      bruno
+      # bruno
       bun
       nodejs_20
       gnumake
-      cmake
+      # cmake
       just
       nodePackages.prettier
       nodePackages.typescript-language-server
@@ -661,9 +663,9 @@
       helix
 
       #ART
-      (blender.override {
-        cudaSupport = true;
-      })
+      # (blender.override {
+      #   cudaSupport = true;
+      # })
       # synfigstudio
       # davinci-resolve
       # rawtherapee
@@ -671,7 +673,7 @@
       aseprite
       # gimp
       # giada
-      tiled
+      # tiled
 
       #GAMES
       prismlauncher
