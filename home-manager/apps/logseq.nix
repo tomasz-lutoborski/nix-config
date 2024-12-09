@@ -5,7 +5,7 @@
 
   src = pkgs.fetchurl {
     url = "https://github.com/logseq/logseq/releases/download/0.10.9/Logseq-linux-x64-0.10.9.AppImage";
-    hash = "sha256-CD6bQ4T8DhJidiOxNRgRDL4obfEZx7hnO0VotVb6lDc=";
+    hash = "sha256-XROuY2RlKnGvK1VNvzauHuLJiveXVKrIYPppoz8fCmc=";
   };
   appimageContents = pkgs.appimageTools.extract {inherit pname version src;};
 in
