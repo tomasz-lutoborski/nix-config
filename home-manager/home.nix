@@ -626,7 +626,7 @@
       zotero_7
       rsync
       syncthing
-      megasync
+      # megasync
 
       #DOCUMENTS
       onlyoffice-bin
@@ -635,6 +635,7 @@
       libsForQt5.okular
       ocrmypdf
       pdftk
+      # logseq
       # koodo-reader
       # drawio
 
@@ -670,7 +671,7 @@
       # davinci-resolve
       # rawtherapee
       # blockbench
-      aseprite
+      # aseprite
       # gimp
       # giada
       # tiled

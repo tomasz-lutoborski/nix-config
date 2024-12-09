@@ -46,7 +46,7 @@
 
   programs.java = {
     enable = true;
-    package = pkgs.jdk22;
+    package = pkgs.jdk23;
   };
 
   services.flatpak.enable = true;
@@ -223,7 +223,11 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Cousine" "Iosevka" "IosevkaTermSlab" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.iosevka
+    nerd-fonts.iosevka-term-slab
+    nerd-fonts.cousine
+    nerd-fonts.droid-sans-mono
     rubik
     open-sans
     roboto
