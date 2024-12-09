@@ -44,6 +44,11 @@
   };
   programs.zsh.enable = true;
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   programs.java = {
     enable = true;
     package = pkgs.jdk23;
@@ -260,7 +265,7 @@
     gnome-maps
   ]);
 
-  # Some programs need SUID wrappers, can be configured further or are
+  # some programs need suid wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
