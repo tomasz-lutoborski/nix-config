@@ -1,7 +1,11 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, config, pkgs, ... }: {
+{ inputs, lib, config, pkgs, ... }:
+let
+  logseqApp = import ./apps/logseq.nix { inherit pkgs; };
+in
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -39,7 +43,7 @@
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [ "electron-25.9.0" "freeimage-unstable-2021-11-01" ];
+      permittedInsecurePackages = [ "electron-25.9.0" "electron-27.3.11" "freeimage-unstable-2021-11-01" ];
     };
   };
 
@@ -635,7 +639,7 @@
       libsForQt5.okular
       ocrmypdf
       pdftk
-      # logseq
+      logseqApp
       # koodo-reader
       # drawio
 
