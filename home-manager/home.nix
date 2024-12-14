@@ -557,7 +557,7 @@ in
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = 0;
+      idle-delay = 720;
     };
   };
 
