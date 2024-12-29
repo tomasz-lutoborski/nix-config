@@ -117,6 +117,16 @@
     };
   };
 
+   services.comfyui = {
+    enable = true;
+    package = inputs.nixified-ai.packages.${pkgs.system}.comfyui-nvidia;
+    host = "0.0.0.0";
+    models = lib.attrValues inputs.nixified-ai.packages.${pkgs.system}.models;
+    customNodes = with inputs.nixified-ai.packages.${pkgs.system}; [
+      comfyui-gguf
+      comfyui-impact-pack
+    ];
+  }; 
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -148,6 +158,10 @@
       };
       # Modesetting is needed for most Wayland compositors
       modesetting.enable = true;
+
+      powerManagement = {
+        enable = true;
+      };
 
       # Use the open source version of the kernel module
       # Only available on driver 515.43.04+

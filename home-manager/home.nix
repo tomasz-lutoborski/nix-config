@@ -57,6 +57,10 @@ in
       CLUTTER_BACKEND = "wayland";
       QT_QPA_PLATFORM = "wayland";
       NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
     sessionPath = [
       "$HOME/.cargo/bin"
@@ -624,6 +628,8 @@ in
       ffmpeg
       ncspot
       zoom-us
+      discord
+      slack
       # audacity
 
       #ARCHIVE
@@ -640,6 +646,8 @@ in
       ocrmypdf
       pdftk
       logseqApp
+      anki
+      # logseq
       # koodo-reader
       # drawio
 
@@ -666,6 +674,8 @@ in
       nodePackages.vscode-json-languageserver
       vscode-fhs
       helix
+      lmstudio
+      code-cursor
 
       #ART
       # (blender.override {
@@ -675,10 +685,11 @@ in
       # davinci-resolve
       # rawtherapee
       # blockbench
-      # aseprite
+      aseprite
       # gimp
       # giada
       # tiled
+      freecad-wayland
 
       #GAMES
       prismlauncher
