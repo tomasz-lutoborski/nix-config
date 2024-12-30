@@ -55,7 +55,10 @@
   };
 
   services.flatpak.enable = true;
-  
+
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];  
   # services.emacs = {
   #   enable = true;
   #   package = pkgs.emacs29-pgtk;
@@ -116,17 +119,6 @@
       # };
     };
   };
-
-   services.comfyui = {
-    enable = true;
-    package = inputs.nixified-ai.packages.${pkgs.system}.comfyui-nvidia;
-    host = "0.0.0.0";
-    models = lib.attrValues inputs.nixified-ai.packages.${pkgs.system}.models;
-    customNodes = with inputs.nixified-ai.packages.${pkgs.system}; [
-      comfyui-gguf
-      comfyui-impact-pack
-    ];
-  }; 
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -196,7 +188,7 @@
   users.users.tomek = {
     isNormalUser = true;
     description = "tomek";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" "libvirtd" "kvm" ];
     packages = with pkgs; [
       firefox
     ];

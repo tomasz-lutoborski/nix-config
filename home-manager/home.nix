@@ -44,6 +44,7 @@ in
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
       permittedInsecurePackages = [ "electron-25.9.0" "electron-27.3.11" "freeimage-unstable-2021-11-01" ];
+      android_sdk.accept_license = true;
     };
   };
 
@@ -652,8 +653,8 @@ in
       # drawio
 
       #PROGRAMMING
-      elixir_1_16
-      erlang
+      # elixir_1_16
+      # erlang
       python3
       clojure
       clojure-lsp
@@ -676,6 +677,8 @@ in
       helix
       lmstudio
       code-cursor
+      android-studio
+      flutter
 
       #ART
       # (blender.override {

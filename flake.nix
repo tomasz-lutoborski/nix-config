@@ -8,12 +8,9 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Nixified-ai
-    nixified-ai.url = "github:matthewcroughan/nixified-ai";
   };
 
-  outputs = { nixpkgs, home-manager, nixified-ai, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, ... }@inputs: {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -21,8 +18,6 @@
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
         # > Our main nixos configuration file <
         modules = [
-
-          nixified-ai.nixosModules.comfyui
 
           ./nixos/configuration.nix
 
