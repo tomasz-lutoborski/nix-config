@@ -44,6 +44,10 @@
   };
   programs.zsh.enable = true;
 
+  programs.steam = {
+    enable = true;
+  };
+
   programs.appimage = {
     enable = true;
     binfmt = true;
@@ -79,6 +83,41 @@
     videoDrivers = [ "nvidia" ];
   };
 
+  services.syncthing = {
+    user = "tomek";
+    overrideDevices = true;
+    overrideFolders = true;
+    dataDir = "/home/tomek/Documents";
+    configDir = "/home/tomek/.local/state/syncthing";
+    enable = true;
+    openDefaultPorts = true;
+    settings = {
+      devices = {
+        "MI9" = { id = "APQONYI-XY5B5RB-YK6LXUE-URWYMEB-7LZZ2HR-U6TTMYV-EBYTVT7-BZO7CAG"; };
+      };
+      folders = {
+        "Camera" = {
+          path = "/home/tomek/Pictures/phone";
+          id = "x98na-echpk";
+          devices = [ "MI9" ];
+          versioning.type = "trashcan";
+        };
+        "LogSeq" = {
+          path = "/home/tomek/Documents/notes";
+          id = "cwkzd-k9qq2";
+          devices = [ "MI9" ];
+          versioning.type = "trashcan";
+        };
+        "Sync" = {
+          path = "/home/tomek/Sync";
+          id = "5gx1s-ud21e";
+          devices = [ "MI9" ];
+          versioning.type = "trashcan";
+        };
+      };
+    };
+  };
+
   virtualisation = {
     docker.enable = true;
     libvirtd = {
@@ -94,6 +133,7 @@
   };
 
   services.postgresql = {
+    package = pkgs.postgresql_16;
     enable = true;
     ensureDatabases = [ "tomek" ];
     ensureUsers = [
@@ -157,7 +197,7 @@
 
       # Use the open source version of the kernel module
       # Only available on driver 515.43.04+
-      open = false;
+      open = true;
 
       # Enable the nvidia settings menu
       nvidiaSettings = true;

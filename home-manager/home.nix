@@ -43,7 +43,7 @@ in
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [ "electron-25.9.0" "electron-27.3.11" "freeimage-unstable-2021-11-01" ];
+      permittedInsecurePackages = [ "electron-25.9.0" "electron-27.3.11" "freeimage-unstable-2021-11-01" "dotnet-sdk-6.0.428"];
       android_sdk.accept_license = true;
     };
   };
@@ -63,9 +63,6 @@ in
       GBM_BACKEND = "nvidia-drm";
       WLR_NO_HARDWARE_CURSORS = "1";
     };
-    sessionPath = [
-      "$HOME/.cargo/bin"
-    ];
   };
 
   qt = {
@@ -179,7 +176,7 @@ in
     };
     initExtra = ''
       unsetopt BEEP
-      alias lf="eza"
+      alias ls="eza"
       # shellcheck disable=SC2034,SC2153,SC2086,SC2155
 
       # Above line is because shellcheck doesn't support zsh, per
@@ -591,6 +588,7 @@ in
       thunderbird
 
       #UTILS
+      pandoc
       jq
       gnuplot
       lazygit
@@ -616,12 +614,13 @@ in
       tldr
       fd
       inotify-tools
-      xsv
+      nix-tree
       hyperfine
       usbutils
       hunspell
       hunspellDicts.pl_PL
       hunspellDicts.en_US
+      dig
 
       #MEDIA
       vlc
@@ -636,8 +635,9 @@ in
       #ARCHIVE
       zotero_7
       rsync
-      syncthing
+      rclone
       # megasync
+      # syncthing
 
       #DOCUMENTS
       onlyoffice-bin
@@ -677,8 +677,7 @@ in
       helix
       lmstudio
       code-cursor
-      android-studio
-      flutter
+      godot_4-mono
 
       #ART
       # (blender.override {
@@ -688,11 +687,11 @@ in
       # davinci-resolve
       # rawtherapee
       # blockbench
-      aseprite
+      # aseprite
       # gimp
       # giada
       # tiled
-      freecad-wayland
+      # freecad-wayland
 
       #GAMES
       prismlauncher
